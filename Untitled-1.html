@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>繁星闪耀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333333;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #999999;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .email {
+            font-size: 14px;
+            color: #666666;
+            text-decoration: none;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .email:hover {
+            color: #0066cc;
+        }
+
+        .social-links {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-links a {
+            font-size: 14px;
+            color: #666666;
+            text-decoration: none;
+            margin: 0 8px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .social-links .wechat-item {
+            position: relative;
+        }
+
+        .social-links a:hover {
+            color: #0066cc;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #999999;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .projects, .tools {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #333333;
+            transition: transform 0.3s;
+        }
+
+        .item:hover {
+            transform: translateY(-2px);
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+
+        .item-name {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        /* 微信二维码悬停效果 */
+        .wechat-item {
+            position: relative;
+        }
+
+        .wechat-qr {
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 160px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 1000;
+        }
+
+        .wechat-qr img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wechat-item:hover .wechat-qr {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #999999;
+            margin-top: 60px;
+        }
+
+        /* 具体图标样式 */
+        .icon-user {
+            background-color: #e8f4fd;
+            color: #4a90e2;
+        }
+
+        .icon-link {
+            background-color: #fce4ec;
+            color: #e91e63;
+        }
+
+        .icon-code {
+            background-color: #e8f5e8;
+            color: #4caf50;
+        }
+
+        .icon-lock {
+            background-color: #fff3e0;
+            color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>繁星闪耀 <span style="font-size: 16px; font-weight: 400; color: #666666;">FXTWink®</span></h1>
+        
+        <div class="contact-info">
+            <a href="mailto:wzu5693@gmail.com" class="email">联系邮箱</a>
+            <div class="social-links">
+                <a href="https://www.cnblogs.com/yanluoxingchen" target="_blank">博客园</a>
+                <a href="https://www.yuque.com/wangzeyu-broa0" target="_blank">语雀花园</a>
+                <a href="#" class="wechat-item">微信公众号
+                    <div class="wechat-qr">
+                        <img src="微信公众号.jpg" alt="微信公众号二维码">
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <p class="section-title">当前项目</p>
+            <div class="projects">
+                <a href="#" class="item">
+                    <div class="icon icon-user">👤</div>
+                    <span class="item-name">用户研究</span>
+                </a>
+                <a href="#" class="item">
+                    <div class="icon icon-link">🔗</div>
+                    <span class="item-name">行业文章</span>
+                </a>
+                <a href="#" class="item">
+                    <div class="icon icon-code">💻</div>
+                    <span class="item-name">Give Me Five</span>
+                </a>
+                <a href="#" class="item">
+                    <div class="icon icon-lock">🔒</div>
+                    <span class="item-name">Privacy 3.0</span>
+                </a>
+            </div>
+        </div>
+
+
+
+        <div class="footer">
+            <p>© 2026 FXTWink® | </p>
+        </div>
+    </div>
+</body>
+</html>
