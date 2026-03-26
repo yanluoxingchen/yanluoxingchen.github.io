@@ -50,7 +50,14 @@
         .main-container {
             display: flex;
             height: 100vh;
-            padding-top: 60px;
+            padding: 60px 20px 20px;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .sidebar {
@@ -125,9 +132,9 @@
         }
 
         .web-preview {
-            flex: 1;
-            margin: 30px 60px 30px 30px;
-            max-width: 800px;
+            max-width: 900px;
+            min-width: 500px;
+            height: 80vh;
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
@@ -190,10 +197,12 @@
             </ul>
         </div>
 
-        <div class="web-preview">
-            <img id="preview-image" src="preview_images/2025年终总结.jpg" alt="预览图片" style="width: 100%; height: 100%; object-fit: contain;">
-            <div class="preview-overlay">
-                <span class="overlay-text">点击跳转</span>
+        <div class="content-wrapper">
+            <div class="web-preview">
+                <img id="preview-image" src="preview_images/2025年终总结.jpg" alt="预览图片" style="width: 100%; height: 100%; object-fit: contain;">
+                <div class="preview-overlay">
+                    <span class="overlay-text">点击跳转</span>
+                </div>
             </div>
         </div>
     </div>
@@ -273,11 +282,8 @@
                 previewImage.src = articles[0].image;
             }
             
-            // 获取侧边栏元素
-            const sidebar = document.querySelector('.sidebar');
-            
-            // 添加鼠标滚轮事件监听
-            sidebar.addEventListener('wheel', function(e) {
+            // 添加鼠标滚轮事件监听到整个文档
+            document.addEventListener('wheel', function(e) {
                 e.preventDefault();
                 
                 if (e.deltaY > 0) {
