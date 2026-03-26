@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所思所想 - 繁星闪耀</title>
+    <link rel="icon" href="images/FXTwink-LOGO.svg" type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+            padding-top: 60px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: transparent;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .article-list {
+            list-style: none;
+            position: relative;
+        }
+        
+        .article-list::before {
+            content: '';
+            position: absolute;
+            left: 11.5px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.3);
+            z-index: 0;
+        }
+
+        .article-item {
+            position: relative;
+            padding: 16px 16px 16px 40px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .article-item::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+
+
+        .article-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .article-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .article-item.active::before {
+            background-color: #ffffff;
+            width: 12px;
+            height: 12px;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .article-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .web-preview {
+            flex: 1;
+            margin: 30px 60px 30px 30px;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-radius: 8px;
+        }
+
+        .web-preview:hover .preview-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .overlay-text {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+            <img src="images/FXTwink-LOGO.svg" alt="FXTWink Logo" class="logo">
+            <span class="brand-name">所思所想</span>
+        </a>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <ul class="article-list">
+                <li class="article-item active">
+                    <div class="article-title">2025年终总结</div>
+                </li>
+                <li class="article-item">
+                    <div class="article-title">燕落有星辰的后花园</div>
+                </li>
+                <li class="article-item">
+                    <div class="article-title">关于工作</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="web-preview">
+            <img id="preview-image" src="" alt="预览图片" style="width: 100%; height: 100%; object-fit: contain;">
+            <div class="preview-overlay">
+                <span class="overlay-text">点击跳转</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 随机渐变颜色
+        const gradients = [
+            'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(45deg, #f093fb 0%, #f5576c 100%)',
+            'linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(45deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(45deg, #fa709a 0%, #fee140 100%)',
+            'linear-gradient(45deg, #a8edea 0%, #fed6e3 100%)'
+        ];
+
+        // 随机选择一个渐变
+        function setRandomGradient() {
+            const randomIndex = Math.floor(Math.random() * gradients.length);
+            document.body.style.background = gradients[randomIndex];
+        }
+
+        // 页面加载时设置随机渐变
+        window.onload = setRandomGradient;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const articleItems = document.querySelectorAll('.article-item');
+            const previewImage = document.getElementById('preview-image');
+
+            const articles = [
+                {
+                    title: '2025年终总结',
+                    image: 'preview_images/2025年终总结.jpg',
+                    url: 'https://mp.weixin.qq.com/s/Xa4GBaCYzangzxUqmiI3cg'
+                },
+                {
+                    title: '燕落有星辰的后花园',
+                    image: 'preview_images/notion.jpg',
+                    url: 'https://www.notion.so'
+                },
+                {
+                    title: '关于工作',
+                    image: 'preview_images/github.jpg',
+                    url: 'https://github.com'
+                }
+            ];
+
+            articleItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    articleItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const article = articles[index];
+                    previewImage.src = article.image;
+                    currentArticleIndex = index;
+                    
+                    // 选择其他项时，让第一项滚动到顶部
+                    if (index > 0) {
+                        articleItems[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // 获取遮罩层元素
+            const previewOverlay = document.querySelector('.preview-overlay');
+            let currentArticleIndex = 0;
+            
+            // 为遮罩层添加点击跳转功能
+            previewOverlay.addEventListener('click', function() {
+                const currentArticle = articles[currentArticleIndex];
+                if (currentArticle && currentArticle.url) {
+                    window.location.href = currentArticle.url;
+                }
+            });
+
+            // 初始加载第一篇文章的图片
+            if (articles.length > 0) {
+                previewImage.src = articles[0].image;
+            }
+            
+            // 获取侧边栏元素
+            const sidebar = document.querySelector('.sidebar');
+            
+            // 添加鼠标滚轮事件监听
+            sidebar.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                
+                if (e.deltaY > 0) {
+                    // 向下滚动，切换到下一章
+                    if (currentArticleIndex< articles.length - 1) {
+                        articleItems[currentArticleIndex + 1].click();
+                    }
+                } else {
+                    // 向上滚动，切换到上一章
+                    if (currentArticleIndex >0) {
+                        articleItems[currentArticleIndex - 1].click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
