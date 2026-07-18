@@ -1,7 +1,6 @@
 baseURL = 'https://www.fxtwink.com/'
 languageCode = 'zh-CN'
 title = 'FXTWink - 繁星闪耀'
-theme = ''
 enableEmoji = true
 hasCJKLanguage = true
 summaryLength = 20
