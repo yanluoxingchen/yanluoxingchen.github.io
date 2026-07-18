@@ -1,0 +1,16 @@
+# Hugo build output
+/public/
+
+# Hugo generated
+/resources/_gen/
+
+# Hugo default
+.hugo_build.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

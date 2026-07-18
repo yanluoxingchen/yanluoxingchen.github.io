@@ -1,0 +1,28 @@
+baseURL = 'https://www.fxtwink.com/'
+languageCode = 'zh-CN'
+title = 'FXTWink - 繁星闪耀'
+theme = ''
+enableEmoji = true
+hasCJKLanguage = true
+summaryLength = 20
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  author = '王择雨'
+  brandName = 'FXTWink'
+  brandSubtitle = '繁星闪耀'
+  email = 'wzu5693@gmail.com'
+
+[menu]
+  [[menu.main]]
+    name = '所思所想'
+    url = '/posts/'
+    weight = 1
+  [[menu.main]]
+    name = '简历'
+    url = '/resume/'
+    weight = 2
