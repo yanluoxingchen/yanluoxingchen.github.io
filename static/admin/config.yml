@@ -24,6 +24,7 @@ auth:
 
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 site_url: https://www.fxtwink.com
+locale: zh_Hans
 
 media_folder: "static/images"
 public_folder: "/images"
