@@ -82,7 +82,7 @@
   .article-title { font-size: 14px; font-weight: 500; color: #ffffff; line-height: 1.4; }
   .article-date { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
 
-  /* ===== Preview Card (text-only) ===== */
+  /* ===== Preview Card ===== */
   .preview-card {
     max-width: 900px; min-width: 500px;
     height: 80vh;
@@ -94,12 +94,21 @@
     cursor: pointer;
   }
 
+  .preview-img {
+    display: none;
+    width: 100%; height: 100%;
+    object-fit: contain;
+  }
+  .preview-img.show { display: block; }
+
   .preview-text {
+    display: none;
     padding: 40px 40px 80px;
     height: 100%;
     color: #333;
     position: relative;
   }
+  .preview-text.show { display: block; }
 
   .preview-text h2 {
     font-size: 28px; font-weight: 700;
@@ -193,7 +202,8 @@
           data-title="{{ $page.Title }}"
           data-date="{{ $page.Date.Format "2006-01-02" }}"
           data-content="{{ $page.Content | plainify }}"
-          {{ with $page.Params.link }}data-link="{{ . }}"{{ end }}>
+          {{ with $page.Params.link }}data-link="{{ . }}"{{ end }}
+          {{ with $page.Params.image }}data-image="{{ . | relURL }}"{{ end }}>
         <div class="article-title">{{ $page.Title }}</div>
         <div class="article-date">{{ $page.Date.Format "2006-01-02" }}</div>
       </li>
@@ -206,6 +216,7 @@
 
   <div class="content-wrapper">
     <div class="preview-card" id="preview-box">
+      <img id="preview-image" class="preview-img" src="" alt="预览图片">
       <div class="preview-text">
         <h2 id="preview-title"></h2>
         <div class="meta" id="preview-date"></div>
@@ -231,6 +242,8 @@
     document.body.className = classes[Math.floor(Math.random() * classes.length)];
 
     var items = document.querySelectorAll('.article-item');
+    var previewImg = document.getElementById('preview-image');
+    var previewText = document.querySelector('.preview-text');
     var previewTitle = document.getElementById('preview-title');
     var previewDate = document.getElementById('preview-date');
     var previewBody = document.getElementById('preview-body');
@@ -249,18 +262,30 @@
       var title = active.getAttribute('data-title') || '';
       var date = active.getAttribute('data-date') || '';
       var content = active.getAttribute('data-content') || '';
+      var img = active.getAttribute('data-image');
       var url = active.getAttribute('data-url') || '#';
       var link = active.getAttribute('data-link');
 
-      previewTitle.textContent = title;
-      previewDate.textContent = date;
-      previewBody.innerHTML = content.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>');
       readBtn.href = url;
       if (link) {
         linkBtn.href = link;
         linkBtn.style.display = 'inline-block';
       } else {
         linkBtn.style.display = 'none';
+      }
+
+      if (img) {
+        // 图片优先
+        previewImg.src = img;
+        previewImg.classList.add('show');
+        previewText.classList.remove('show');
+      } else {
+        // 无图片用文字
+        previewImg.classList.remove('show');
+        previewText.classList.add('show');
+        previewTitle.textContent = title;
+        previewDate.textContent = date;
+        previewBody.innerHTML = content.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>');
       }
       currentIdx = idx;
       if (idx > 0) items[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
