@@ -4,6 +4,7 @@ type: resume
 date: '2026-07-18'
 name: 王择雨
 age: 27
+birth_year: 1999
 education: 大专
 phone: 133-4749-5693
 location: 山东 · 莱州

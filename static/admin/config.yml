@@ -50,7 +50,7 @@ collections:
         file: "content/resume.md"
         fields:
           - { label: "姓名", name: "name", widget: "string" }
-          - { label: "年龄", name: "age", widget: "number", value_type: "int" }
+          - { label: "出生年份", name: "birth_year", widget: "number", value_type: "int", hint: "系统自动计算年龄" }
           - { label: "学历", name: "education", widget: "string" }
           - { label: "电话", name: "phone", widget: "string" }
           - { label: "所在地", name: "location", widget: "string" }
