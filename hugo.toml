@@ -3,7 +3,7 @@ languageCode = 'zh-CN'
 title = 'FXTWink - 繁星闪耀'
 enableEmoji = true
 hasCJKLanguage = true
-summaryLength = 20
+summaryLength = 70
 
 [markup]
   [markup.goldmark]

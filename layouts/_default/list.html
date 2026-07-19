@@ -11,7 +11,6 @@
     transition: background 0.6s;
   }
 
-  /* Random gradient: overridden by JS */
   body.g0 { background: linear-gradient(45deg, #667eea 0%, #764ba2 100%); }
   body.g1 { background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%); }
   body.g2 { background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%); }
@@ -78,6 +77,9 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
 
   .article-item::before {
@@ -112,7 +114,7 @@
     margin-top: 2px;
   }
 
-  .web-preview {
+  .preview-card {
     max-width: 900px; min-width: 500px;
     height: 80vh;
     background: #ffffff;
@@ -122,10 +124,51 @@
     position: relative;
   }
 
-  .web-preview img {
+  .preview-img {
+    display: none;
     width: 100%; height: 100%;
     object-fit: contain;
   }
+
+  .preview-img.show { display: block; }
+
+  .preview-text {
+    display: none;
+    padding: 40px;
+    height: 100%;
+    overflow-y: auto;
+    color: #333;
+  }
+
+  .preview-text.show { display: block; }
+
+  .preview-text h2 {
+    font-size: 28px; font-weight: 700;
+    color: #222; margin-bottom: 12px;
+  }
+
+  .preview-text .meta {
+    font-size: 13px; color: #999;
+    margin-bottom: 24px;
+  }
+
+  .preview-text .summary {
+    font-size: 16px; line-height: 1.8;
+    color: #555;
+    border-left: 4px solid #4a85c5;
+    padding-left: 16px;
+  }
+
+  .preview-text .read-more {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 10px 24px;
+    background: #4a85c5; color: #fff;
+    text-decoration: none; border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .preview-text .read-more:hover { background: #3a6fa8; }
 
   .preview-overlay {
     position: absolute;
@@ -142,7 +185,7 @@
     gap: 16px;
   }
 
-  .web-preview:hover .preview-overlay {
+  .preview-card:hover .preview-overlay {
     opacity: 1;
     pointer-events: auto;
   }
@@ -183,8 +226,10 @@
   @media (max-width: 768px) {
     .main-container { flex-direction: column; padding: 60px 20px 20px; overflow-y: auto; }
     .sidebar { width: 100%; padding: 0 0 20px; }
-    .web-preview { min-width: unset; width: 100%; height: 50vh; }
+    .preview-card { min-width: unset; width: 100%; height: 50vh; }
     .content-wrapper { flex: unset; }
+    .preview-text { padding: 24px; }
+    .preview-text h2 { font-size: 22px; }
   }
 </style>
 {{ end }}
@@ -206,6 +251,9 @@
       <li class="article-item{{ if eq $index 0 }} active{{ end }}"
           data-index="{{ $index }}"
           data-url="{{ $page.RelPermalink }}"
+          data-title="{{ $page.Title }}"
+          data-date="{{ $page.Date.Format "2006-01-02" }}"
+          data-summary="{{ $page.Summary | plainify }}"
           {{ with $page.Params.link }}data-link="{{ . }}"{{ end }}
           {{ with $page.Params.image }}data-image="{{ . | relURL }}"{{ end }}>
         <div class="article-title">{{ $page.Title }}</div>
@@ -219,9 +267,14 @@
   </div>
 
   <div class="content-wrapper">
-    <div class="web-preview" id="preview-box">
-      {{ $first := index $pages 0 }}
-      <img id="preview-image" src="{{ if $first }}{{ with $first.Params.image }}{{ . | relURL }}{{ end }}{{ end }}" alt="预览图片" style="width: 100%; height: 100%; object-fit: contain;">
+    <div class="preview-card" id="preview-box">
+      <img id="preview-image" class="preview-img" src="" alt="预览图片">
+      <div id="preview-article" class="preview-text">
+        <h2 id="preview-title"></h2>
+        <div class="meta" id="preview-date"></div>
+        <div class="summary" id="preview-summary"></div>
+        <a class="read-more" id="preview-read" href="#">阅读全文 &rarr;</a>
+      </div>
       <div class="preview-overlay" id="preview-overlay">
         <span class="overlay-text">查看文章</span>
         <div class="overlay-btns">
@@ -237,13 +290,16 @@
 {{ define "script" }}
 <script>
   (function() {
-    // Random gradient
     var classes = ['g0','g1','g2','g3','g4','g5'];
-    var ri = Math.floor(Math.random() * classes.length);
-    document.body.className = classes[ri];
+    document.body.className = classes[Math.floor(Math.random() * classes.length)];
 
     var items = document.querySelectorAll('.article-item');
     var previewImg = document.getElementById('preview-image');
+    var previewArticle = document.getElementById('preview-article');
+    var previewTitle = document.getElementById('preview-title');
+    var previewDate = document.getElementById('preview-date');
+    var previewSummary = document.getElementById('preview-summary');
+    var previewRead = document.getElementById('preview-read');
     var readBtn = document.getElementById('read-btn');
     var linkBtn = document.getElementById('link-btn');
     var currentIdx = 0;
@@ -253,21 +309,41 @@
         item.classList.toggle('active', i === idx);
       });
       var active = items[idx];
-      if (active) {
-        var img = active.getAttribute('data-image');
-        if (img) previewImg.src = img;
-        var url = active.getAttribute('data-url');
-        readBtn.href = url || '#';
-        var link = active.getAttribute('data-link');
-        if (link) {
-          linkBtn.href = link;
-          linkBtn.style.display = 'inline-block';
-        } else {
-          linkBtn.style.display = 'none';
-        }
-        currentIdx = idx;
-        if (idx > 0) items[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!active) return;
+
+      var img = active.getAttribute('data-image');
+      var title = active.getAttribute('data-title') || '';
+      var date = active.getAttribute('data-date') || '';
+      var summary = active.getAttribute('data-summary') || '';
+      var url = active.getAttribute('data-url') || '#';
+      var link = active.getAttribute('data-link');
+
+      // Update links
+      readBtn.href = url;
+      previewRead.href = url;
+      if (link) {
+        linkBtn.href = link;
+        linkBtn.style.display = 'inline-block';
+      } else {
+        linkBtn.style.display = 'none';
       }
+
+      if (img) {
+        // Show image preview
+        previewImg.src = img;
+        previewImg.classList.add('show');
+        previewArticle.classList.remove('show');
+      } else {
+        // Show text preview
+        previewImg.classList.remove('show');
+        previewArticle.classList.add('show');
+        previewTitle.textContent = title;
+        previewDate.textContent = date;
+        previewSummary.textContent = summary;
+      }
+
+      currentIdx = idx;
+      if (idx > 0) items[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     items.forEach(function(item) {
@@ -276,10 +352,8 @@
       });
     });
 
-    // Initial state
     if (items.length > 0) updateActive(0);
 
-    // Scroll wheel
     document.addEventListener('wheel', function(e) {
       e.preventDefault();
       if (e.deltaY > 0 && currentIdx < items.length - 1) {
