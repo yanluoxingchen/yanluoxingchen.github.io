@@ -19,51 +19,35 @@
   body.g5 { background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%); }
 
   .header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 60px;
-    background: transparent;
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 60px; background: transparent;
     display: flex; align-items: center;
-    padding: 0 20px;
-    z-index: 1000;
+    padding: 0 20px; z-index: 1000;
   }
 
-  .header a {
-    display: flex; align-items: center;
-    text-decoration: none; color: inherit;
-  }
-
+  .header a { display: flex; align-items: center; text-decoration: none; color: inherit; }
   .logo { width: 40px; height: 40px; margin-right: 12px; }
   .brand-name { font-size: 18px; font-weight: 600; color: #ffffff; }
 
   .main-container {
-    display: flex;
-    height: 100vh;
+    display: flex; height: 100vh;
     padding: 60px 20px 20px;
   }
 
   .content-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: 1; display: flex;
+    justify-content: center; align-items: center;
   }
 
   .sidebar {
-    width: 280px;
-    background: transparent;
-    overflow-y: auto;
-    padding: 20px;
+    width: 280px; background: transparent;
+    overflow-y: auto; padding: 20px;
   }
 
-  .article-list {
-    list-style: none;
-    position: relative;
-  }
+  .article-list { list-style: none; position: relative; }
 
   .article-list::before {
-    content: '';
-    position: absolute;
+    content: ''; position: absolute;
     left: 11.5px; top: 32px; bottom: 0;
     width: 1px;
     background-color: rgba(255, 255, 255, 0.3);
@@ -73,24 +57,17 @@
   .article-item {
     position: relative;
     padding: 16px 16px 16px 40px;
-    margin-bottom: 24px;
-    border-radius: 4px;
+    margin-bottom: 24px; border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
-    text-decoration: none;
-    color: inherit;
-    display: block;
   }
 
   .article-item::before {
-    content: '';
-    position: absolute;
-    left: 8px; top: 50%;
-    transform: translateY(-50%);
+    content: ''; position: absolute;
+    left: 8px; top: 50%; transform: translateY(-50%);
     width: 8px; height: 8px;
     background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    z-index: 1;
+    border-radius: 50%; z-index: 1;
   }
 
   .article-item:hover { background-color: rgba(255, 255, 255, 0.1); }
@@ -99,21 +76,13 @@
   .article-item.active::before {
     background-color: #ffffff;
     width: 12px; height: 12px;
-    left: 6px; top: 50%;
-    transform: translateY(-50%);
+    left: 6px; top: 50%; transform: translateY(-50%);
   }
 
-  .article-title {
-    font-size: 14px; font-weight: 500;
-    color: #ffffff; line-height: 1.4;
-  }
+  .article-title { font-size: 14px; font-weight: 500; color: #ffffff; line-height: 1.4; }
+  .article-date { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
 
-  .article-date {
-    font-size: 11px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 2px;
-  }
-
+  /* ===== Preview Card (text-only) ===== */
   .preview-card {
     max-width: 900px; min-width: 500px;
     height: 80vh;
@@ -122,94 +91,68 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     position: relative;
+    cursor: pointer;
   }
-
-  .preview-img {
-    display: none;
-    width: 100%; height: 100%;
-    object-fit: contain;
-  }
-
-  .preview-img.show { display: block; }
 
   .preview-text {
-    display: none;
-    padding: 40px;
+    padding: 40px 40px 80px;
     height: 100%;
-    overflow-y: auto;
     color: #333;
+    position: relative;
   }
-
-  .preview-text.show { display: block; }
 
   .preview-text h2 {
     font-size: 28px; font-weight: 700;
-    color: #222; margin-bottom: 12px;
+    color: #222; margin-bottom: 8px;
   }
 
   .preview-text .meta {
-    font-size: 13px; color: #999;
+    font-size: 13px; color: #aaa;
     margin-bottom: 24px;
   }
 
-  .preview-text .summary {
-    font-size: 16px; line-height: 1.8;
+  .preview-text .body {
+    font-size: 16px; line-height: 1.85;
     color: #555;
-    border-left: 4px solid #4a85c5;
-    padding-left: 16px;
   }
 
-  .preview-text .read-more {
-    display: inline-block;
-    margin-top: 24px;
-    padding: 10px 24px;
-    background: #4a85c5; color: #fff;
-    text-decoration: none; border-radius: 4px;
-    font-size: 14px;
-  }
+  .preview-text .body p { margin-bottom: 1em; }
 
-  .preview-text .read-more:hover { background: #3a6fa8; }
+  /* Bottom fade blur */
+  .fade-mask {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, #ffffff 80%);
+    pointer-events: none;
+  }
 
   .preview-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    border-radius: 8px;
-    flex-direction: column;
-    gap: 16px;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s ease;
+    pointer-events: none; border-radius: 8px;
+    flex-direction: column; gap: 16px;
   }
 
   .preview-card:hover .preview-overlay {
-    opacity: 1;
-    pointer-events: auto;
+    opacity: 1; pointer-events: auto;
   }
 
   .overlay-text {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 600;
+    color: #ffffff; font-size: 24px; font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
-  .overlay-btns {
-    display: flex; gap: 12px;
-  }
+  .overlay-btns { display: flex; gap: 12px; }
 
   .overlay-btn {
-    padding: 8px 20px;
-    border: 2px solid #fff;
-    color: #fff;
-    background: transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: none;
+    padding: 8px 20px; border: 2px solid #fff;
+    color: #fff; background: transparent;
+    border-radius: 4px; cursor: pointer;
+    font-size: 14px; text-decoration: none;
     transition: background 0.2s;
   }
 
@@ -217,18 +160,14 @@
   .overlay-btn.primary { background: #fff; color: #333; }
   .overlay-btn.primary:hover { background: #e0e0e0; }
 
-  .no-article {
-    color: rgba(255,255,255,0.6);
-    font-size: 18px;
-    text-align: center;
-  }
+  .no-article { color: rgba(255,255,255,0.6); font-size: 18px; text-align: center; }
 
   @media (max-width: 768px) {
     .main-container { flex-direction: column; padding: 60px 20px 20px; overflow-y: auto; }
     .sidebar { width: 100%; padding: 0 0 20px; }
     .preview-card { min-width: unset; width: 100%; height: 50vh; }
     .content-wrapper { flex: unset; }
-    .preview-text { padding: 24px; }
+    .preview-text { padding: 24px 24px 70px; }
     .preview-text h2 { font-size: 22px; }
   }
 </style>
@@ -253,9 +192,8 @@
           data-url="{{ $page.RelPermalink }}"
           data-title="{{ $page.Title }}"
           data-date="{{ $page.Date.Format "2006-01-02" }}"
-          data-summary="{{ $page.Summary | plainify }}"
-          {{ with $page.Params.link }}data-link="{{ . }}"{{ end }}
-          {{ with $page.Params.image }}data-image="{{ . | relURL }}"{{ end }}>
+          data-content="{{ $page.Content | plainify }}"
+          {{ with $page.Params.link }}data-link="{{ . }}"{{ end }}>
         <div class="article-title">{{ $page.Title }}</div>
         <div class="article-date">{{ $page.Date.Format "2006-01-02" }}</div>
       </li>
@@ -268,15 +206,14 @@
 
   <div class="content-wrapper">
     <div class="preview-card" id="preview-box">
-      <img id="preview-image" class="preview-img" src="" alt="预览图片">
-      <div id="preview-article" class="preview-text">
+      <div class="preview-text">
         <h2 id="preview-title"></h2>
         <div class="meta" id="preview-date"></div>
-        <div class="summary" id="preview-summary"></div>
-        <a class="read-more" id="preview-read" href="#">阅读全文 &rarr;</a>
+        <div class="body" id="preview-body"></div>
+        <div class="fade-mask"></div>
       </div>
-      <div class="preview-overlay" id="preview-overlay">
-        <span class="overlay-text">查看文章</span>
+      <div class="preview-overlay">
+        <span class="overlay-text">阅读全文</span>
         <div class="overlay-btns">
           <a class="overlay-btn primary" id="read-btn" href="#">阅读正文</a>
           <a class="overlay-btn" id="link-btn" href="#" target="_blank">原文链接</a>
@@ -294,14 +231,12 @@
     document.body.className = classes[Math.floor(Math.random() * classes.length)];
 
     var items = document.querySelectorAll('.article-item');
-    var previewImg = document.getElementById('preview-image');
-    var previewArticle = document.getElementById('preview-article');
     var previewTitle = document.getElementById('preview-title');
     var previewDate = document.getElementById('preview-date');
-    var previewSummary = document.getElementById('preview-summary');
-    var previewRead = document.getElementById('preview-read');
+    var previewBody = document.getElementById('preview-body');
     var readBtn = document.getElementById('read-btn');
     var linkBtn = document.getElementById('link-btn');
+    var previewCard = document.getElementById('preview-box');
     var currentIdx = 0;
 
     function updateActive(idx) {
@@ -311,37 +246,22 @@
       var active = items[idx];
       if (!active) return;
 
-      var img = active.getAttribute('data-image');
       var title = active.getAttribute('data-title') || '';
       var date = active.getAttribute('data-date') || '';
-      var summary = active.getAttribute('data-summary') || '';
+      var content = active.getAttribute('data-content') || '';
       var url = active.getAttribute('data-url') || '#';
       var link = active.getAttribute('data-link');
 
-      // Update links
+      previewTitle.textContent = title;
+      previewDate.textContent = date;
+      previewBody.innerHTML = content.replace(/\n\n/g, '</p><p>').replace(/^/, '<p>').replace(/$/, '</p>');
       readBtn.href = url;
-      previewRead.href = url;
       if (link) {
         linkBtn.href = link;
         linkBtn.style.display = 'inline-block';
       } else {
         linkBtn.style.display = 'none';
       }
-
-      if (img) {
-        // Show image preview
-        previewImg.src = img;
-        previewImg.classList.add('show');
-        previewArticle.classList.remove('show');
-      } else {
-        // Show text preview
-        previewImg.classList.remove('show');
-        previewArticle.classList.add('show');
-        previewTitle.textContent = title;
-        previewDate.textContent = date;
-        previewSummary.textContent = summary;
-      }
-
       currentIdx = idx;
       if (idx > 0) items[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -353,6 +273,12 @@
     });
 
     if (items.length > 0) updateActive(0);
+
+    // Click the card to open article
+    previewCard.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') return; // allow link clicks
+      window.location.href = readBtn.href;
+    });
 
     document.addEventListener('wheel', function(e) {
       e.preventDefault();
