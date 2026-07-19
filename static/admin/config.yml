@@ -2,7 +2,7 @@ backend:
   name: github
   repo: yanluoxingchen/yanluoxingchen.github.io
   branch: main
-  base_url: https://fxtwink-oauth.netlify.app
+  base_url: https://incomparable-lolly-f5be76.netlify.app
 
 media_folder: "static/images"
 public_folder: "/images"
