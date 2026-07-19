@@ -43,7 +43,7 @@ collections:
       - { label: "正文", name: "body", widget: "markdown" }
 
   - name: "pages"
-    label: "页面"
+    label: "简历"
     files:
       - label: "简历"
         name: "resume"
