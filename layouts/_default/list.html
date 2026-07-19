@@ -192,7 +192,7 @@
 
 <div class="main-container">
   <div class="sidebar">
-    {{ $pages := where .Site.RegularPages "Section" "posts" }}
+    {{ $pages := sort (where .Site.RegularPages "Section" "posts") "Lastmod" "desc" }}
     {{ if $pages }}
     <ul class="article-list">
       {{ range $index, $page := $pages }}
