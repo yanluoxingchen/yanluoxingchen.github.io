@@ -43,8 +43,31 @@ collections:
       - { label: "正文", name: "body", widget: "markdown" }
 
   - name: "pages"
-    label: "简历"
+    label: "页面"
     files:
+      - label: "指示牌"
+        name: "home"
+        file: "content/_index.md"
+        fields:
+          - { label: "标题", name: "title", widget: "string" }
+          - { label: "副标题", name: "subtitle", widget: "string" }
+          - { label: "邮箱", name: "email", widget: "string" }
+          - label: "社交链接"
+            name: "links"
+            widget: "list"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接", name: "url", widget: "string" }
+              - { label: "二维码图片", name: "qr", widget: "image", required: false }
+          - label: "项目列表"
+            name: "projects"
+            widget: "list"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接", name: "url", widget: "string" }
+              - { label: "图标(emoji)", name: "icon", widget: "string" }
+              - { label: "颜色类型", name: "color", widget: "select", options: ["user", "link", "code", "lock"] }
+
       - label: "简历"
         name: "resume"
         file: "content/resume.md"
@@ -79,7 +102,7 @@ collections:
               - { label: "地点", name: "location", widget: "string" }
               - { label: "公司", name: "company", widget: "string", required: false }
               - { label: "职位", name: "role", widget: "string" }
-              - { label: "详情", name: "details", widget: "list", field: { label: "条目", name: "item", widget: "string" } }
+              - { label: "详情", name: "details", widget: "list" }
           - label: "教育"
             name: "education_items"
             widget: "list"
@@ -97,3 +120,19 @@ collections:
           - label: "荣誉"
             name: "honors"
             widget: "list"
+
+      - label: "导航"
+        name: "nav"
+        file: "content/nav.md"
+        fields:
+          - label: "链接分组"
+            name: "groups"
+            widget: "list"
+            fields:
+              - { label: "分组名", name: "name", widget: "string" }
+              - label: "链接列表"
+                name: "links"
+                widget: "list"
+                fields:
+                  - { label: "名称", name: "name", widget: "string" }
+                  - { label: "链接", name: "url", widget: "string" }

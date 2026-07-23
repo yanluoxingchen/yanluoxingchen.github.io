@@ -1,6 +1,7 @@
 baseURL = 'https://www.fxtwink.com/'
 languageCode = 'zh-CN'
 title = 'FXTWink - 繁星闪耀'
+theme = 'FixIt'
 enableEmoji = true
 hasCJKLanguage = true
 summaryLength = 70
@@ -11,17 +12,31 @@ summaryLength = 70
       unsafe = true
 
 [params]
-  author = '王择雨'
-  brandName = 'FXTWink'
-  brandSubtitle = '繁星闪耀'
+  [params.author]
+    name = '王择雨'
   email = 'wzu5693@gmail.com'
+  [params.app]
+    title = 'FXTWink'
+  [params.footer]
+    enable = true
+    since = 2026
+    [params.footer.custom]
+      copyright = 'FXTWink'
 
 [menu]
   [[menu.main]]
+    name = '指示牌'
+    url = '/'
+    weight = 1
+  [[menu.main]]
     name = '所思所想'
     url = '/posts/'
-    weight = 1
+    weight = 2
+  [[menu.main]]
+    name = '导航'
+    url = '/nav/'
+    weight = 3
   [[menu.main]]
     name = '简历'
     url = '/resume/'
-    weight = 2
+    weight = 4
