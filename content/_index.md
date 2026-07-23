@@ -19,7 +19,7 @@ projects:
     color: user
   - name: 博客
     url: /posts/
-    icon: 🧠
+    icon: 📝
     color: lock
   - name: 导航
     url: /nav/
