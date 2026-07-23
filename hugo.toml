@@ -36,7 +36,3 @@ summaryLength = 70
     name = '导航'
     url = '/nav/'
     weight = 3
-  [[menu.main]]
-    name = '简历'
-    url = '/resume/'
-    weight = 4
