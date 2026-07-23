@@ -17,7 +17,7 @@ projects:
     url: https://www.yuque.com/wangzeyu-broa0/ukl2lk
     icon: ⚙️
     color: user
-  - name: 所思所想
+  - name: 博客
     url: /posts/
     icon: 🧠
     color: lock

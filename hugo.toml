@@ -29,7 +29,7 @@ summaryLength = 70
     url = '/'
     weight = 1
   [[menu.main]]
-    name = '所思所想'
+    name = '博客'
     url = '/posts/'
     weight = 2
   [[menu.main]]
