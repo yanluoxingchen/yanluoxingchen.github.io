@@ -39,6 +39,8 @@ collections:
     fields:
       - { label: "标题", name: "title", widget: "string" }
       - { label: "日期", name: "date", widget: "datetime" }
+      - { label: "分类", name: "categories", widget: "list", required: false, field: { label: "分类", name: "category", widget: "string" } }
+      - { label: "标签", name: "tags", widget: "list", required: false, field: { label: "标签", name: "tag", widget: "string" } }
       - { label: "预览图", name: "image", widget: "image", required: false }
       - { label: "外部链接", name: "link", widget: "string", required: false }
       - { label: "正文", name: "body", widget: "markdown", buttons: ["bold", "italic", "code", "link", "heading-one", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"] }
