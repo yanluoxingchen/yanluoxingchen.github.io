@@ -1,8 +1,6 @@
 # Hugo build output
 /public/
 
-.hugo_bin/
-
 # Hugo generated
 /resources/_gen/
 

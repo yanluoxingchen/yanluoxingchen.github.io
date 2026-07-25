@@ -1,0 +1,170 @@
+{{- define "title" -}}
+  {{- .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $profile := .Site.Params.home.profile -}}
+  {{- $posts := .Site.Params.home.posts -}}
+  {{- $pages := .Pages -}}
+
+  {{- /* Paginate */ -}}
+  {{- with $posts.paginate | default .Site.Params.paginate -}}
+    {{- $pages = $.Paginate $pages . -}}
+  {{- else -}}
+    {{- $pages = .Paginate $pages -}}
+  {{- end -}}
+
+  <div class="page home posts">
+    {{- /* Profile hero section: full viewport height, centered */ -}}
+    {{- if ne $profile.enable false -}}
+    <div class="profile-hero">
+      {{- partial "home/profile.html" . -}}
+      <div class="scroll-hint">
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+    {{- end -}}
+
+    {{- /* Post summaries: hidden until scroll */ -}}
+    <div class="post-list-hidden" id="post-list">
+      {{- range $pages.Pages -}}
+        {{- .Render "summary" -}}
+      {{- end -}}
+      {{- partial "paginator.html" . -}}
+    </div>
+  </div>
+
+  {{- /* Scroll reveal styles */ -}}
+  <style>
+    body {
+      background-color: #faf8f3;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.008) 2px, rgba(0,0,0,0.008) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.008) 2px, rgba(0,0,0,0.008) 4px);
+    }
+    .header-title-text {
+      font-size: 0;
+    }
+    .header-title-text::after {
+      content: '繁星闪耀';
+      font-size: 1.125rem;
+    }
+    .profile-hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 120px);
+      padding: 2rem 0;
+    }
+    .profile-hero .home-profile {
+      padding: 0;
+    }
+    .profile-hero .home-avatar,
+    .profile-hero .home-title,
+    .profile-hero .home-subtitle,
+    .profile-hero .links,
+    .scroll-hint {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    .profile-hero .home-title {
+      font-size: 3.5rem;
+      animation-delay: 0.2s;
+    }
+    .profile-hero .home-subtitle {
+      animation-delay: 0.4s;
+    }
+    .profile-hero .links {
+      animation-delay: 0.6s;
+    }
+    .profile-hero .home-profile .home-avatar img {
+      width: 6rem;
+    }
+    .scroll-hint {
+      margin-top: 2rem;
+      font-size: 1.25rem;
+      color: #999;
+      cursor: default;
+      opacity: 0;
+      animation: fadeInHint 0.6s ease 0.8s forwards;
+    }
+    .scroll-hint.ready {
+      animation: bounce 2s infinite;
+      opacity: 1;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInHint {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+    .post-list-hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .post-list-hidden.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .summary .post-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary .post-publish {
+      margin-left: auto;
+    }
+  </style>
+
+  {{- /* Scroll reveal script */ -}}
+  <script>
+    (function() {
+      var posts = document.getElementById('post-list');
+      var hint = document.querySelector('.scroll-hint');
+
+      /* Inject admin entry icon next to theme switch in header */
+      var adminHTML = '<li class="menu-item"><a class="menu-link" href="/admin/" title="进入后台"><i class="fa-solid fa-user-gear fa-sm"></i></a></li>';
+
+      /* Desktop header */
+      var desktopTheme = document.querySelector('#header-desktop .theme-switch');
+      if (desktopTheme) {
+        desktopTheme.insertAdjacentHTML('afterend', adminHTML);
+      }
+
+      /* Mobile header */
+      var mobileTheme = document.querySelector('#header-mobile .theme-switch');
+      if (mobileTheme) {
+        mobileTheme.insertAdjacentHTML('afterend', adminHTML);
+      }
+
+      /* Switch scroll-hint to bounce after entrance animation ends */
+      if (hint) {
+        hint.addEventListener('animationend', function() {
+          hint.classList.add('ready');
+        });
+      }
+
+      /* Reveal post list on scroll */
+      if (!posts) return;
+      function reveal() {
+        var rect = posts.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          posts.classList.add('revealed');
+          window.removeEventListener('scroll', reveal);
+        }
+      }
+      window.addEventListener('scroll', reveal);
+      reveal();
+    })();
+  </script>
+{{- end -}}

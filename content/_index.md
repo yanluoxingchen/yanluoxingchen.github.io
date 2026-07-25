@@ -25,4 +25,8 @@ projects:
     url: /nav/
     icon: 🧭
     color: code
+  - name: 简历
+    url: /resume/
+    icon: 📄
+    color: link
 ---

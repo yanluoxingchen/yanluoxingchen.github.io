@@ -4,8 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FXTWink 后台</title>
+  <style>
+    .cms-date-right {
+      float: right;
+      color: #999;
+      font-weight: normal;
+      font-size: 0.85em;
+    }
+  </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@3/dist/decap-cms.js"></script>
+  <script>
+    /* 将文章列表中的日期右对齐 */
+    function formatListCards() {
+      document.querySelectorAll('[class*="ListCardTitle"]').forEach(function(h2) {
+        if (h2.dataset.formatted) return;
+        h2.dataset.formatted = '1';
+        var text = h2.childNodes;
+        for (var i = 0; i < text.length; i++) {
+          var node = text[i];
+          if (node.nodeType === 3 && /^\d{4}-\d{2}-\d{2}\s{2}/.test(node.textContent)) {
+            var match = node.textContent.match(/^(\d{4}-\d{2}-\d{2})\s{2}(.*)/);
+            if (match) {
+              var span = document.createElement('span');
+              span.className = 'cms-date-right';
+              span.textContent = match[1];
+              h2.insertBefore(span, node);
+              node.textContent = match[2];
+            }
+          }
+        }
+      });
+    }
+    /* 监听 DOM 变化 */
+    var observer = new MutationObserver(formatListCards);
+    observer.observe(document.body, { childList: true, subtree: true });
+    /* SPA 路由变化也重新处理 */
+    window.addEventListener('hashchange', function() {
+      setTimeout(formatListCards, 300);
+    });
+  </script>
 </body>
 </html>

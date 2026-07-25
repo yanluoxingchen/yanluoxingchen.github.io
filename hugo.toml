@@ -10,18 +10,67 @@ summaryLength = 70
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+      hardWraps = true
 
 [params]
+  # 作者
   [params.author]
     name = '王择雨'
   email = 'wzu5693@gmail.com'
+  # App
   [params.app]
     title = 'FXTWink'
+  # 页脚
   [params.footer]
     enable = true
     since = 2026
     [params.footer.custom]
       copyright = 'FXTWink'
+  # 面包屑导航
+  [params.breadcrumb]
+    enable = true
+  # 回到顶部
+  [params.backToTop]
+    enable = true
+  # 文章页配置
+  [params.page]
+    # 分享
+    [params.page.share]
+      enable = true
+    # 相关文章
+    [params.page.related]
+      enable = true
+    # 图片灯箱
+    [params.page.lightgallery]
+      enable = true
+    # 过期提醒（超过180天提醒）
+    [params.page.expirationReminder]
+      enable = true
+      limit = 180
+    # 代码块复制
+    [params.page.code]
+      copy = true
+    # 标题编号
+    [params.page.heading]
+      [params.page.heading.number]
+        enable = true
+    # Pangu 中文排版
+    [params.pangu]
+      enable = true
+  # 代码块配置
+  [params.codeblock]
+    copy = true
+
+[params.home]
+  [params.home.profile]
+    enable = true
+    avatarURL = "/images/FXTwink-LOGO.svg"
+    title = "FXTWink"
+    subtitle = "繁星闪耀，代码生花"
+    typeit = true
+  [params.home.posts]
+    enable = true
+    paginate = 10
 
 [menu]
   [[menu.main]]
