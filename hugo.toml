@@ -15,11 +15,12 @@ summaryLength = 70
 [params]
   # 作者
   [params.author]
-    name = '王择雨'
+    name = 'WZU'
   email = 'wzu5693@gmail.com'
   # App
   [params.app]
     title = 'FXTWink'
+    svgFavicon = "/images/FXTwink-LOGO.svg"
   # 页脚
   [params.footer]
     enable = true
@@ -81,7 +82,3 @@ summaryLength = 70
     name = '博客'
     url = '/posts/'
     weight = 2
-  [[menu.main]]
-    name = '导航'
-    url = '/nav/'
-    weight = 3
