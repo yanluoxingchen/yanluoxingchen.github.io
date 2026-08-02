@@ -3,6 +3,10 @@
 
 # Hugo generated
 /resources/_gen/
+.hugo_bin/
+
+# Hugo generated editor config (rewritten on every build)
+assets/jsconfig.json
 
 # Hugo default
 .hugo_build.lock
