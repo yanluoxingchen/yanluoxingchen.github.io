@@ -6,12 +6,40 @@
 // 指示牌格子背景 - 亮色模式
 body {
   background-image:
-    linear-gradient(to right, rgba(128, 128, 128, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(128, 128, 128, 0.12) 1px, transparent 1px);
+    linear-gradient(to right, rgba(128, 128, 128, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(128, 128, 128, 0.10) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-// 暗色模式 - 单独处理（无格子背景）
+// 统一：亮色模式下 header 半透明，格子透出
+header {
+  background-color: rgba(248, 248, 248, 0.88);
+  backdrop-filter: blur(6px);
+}
+
+// 文章区域容器半透明，保持格子背景统一
+.collections,
+.collections .collection-item,
+.collections .list-item,
+.collections .tag-list-item,
+.card-link {
+  background-color: rgba(255, 255, 255, 0.72);
+}
+
+// 暗色模式 - 恢复原有纯色背景
 [data-theme=dark] body {
   background-image: none;
+}
+
+[data-theme=dark] header {
+  background-color: fixit-var(header-background-color);
+  backdrop-filter: none;
+}
+
+[data-theme=dark] .collections,
+[data-theme=dark] .collections .collection-item,
+[data-theme=dark] .collections .list-item,
+[data-theme=dark] .collections .tag-list-item,
+[data-theme=dark] .card-link {
+  background-color: initial;
 }
