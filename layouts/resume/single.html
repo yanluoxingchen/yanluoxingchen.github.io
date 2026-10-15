@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ .Title }}</title>
+<link rel="icon" href="{{ "/images/FXTwink-LOGO.svg" | relURL }}">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -11,21 +12,25 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #e8e8e8;
+    background: radial-gradient(ellipse at 50% 60%, #101528 0%, #0a0d18 55%, #05070d 100%);
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   .page-wrapper { min-height: 100vh; padding: 20px 0; }
 
-  .print-btn { display: flex; justify-content: center; gap: 10px; margin-bottom: 14px; }
+  .print-btn { display: flex; justify-content: center; gap: 10px; margin-bottom: 14px; color: #a5a5b0; }
   .print-btn button {
-    padding: 8px 22px; background: #4a85c5; color: #fff; border: none;
+    padding: 8px 22px;
+    background: rgba(141, 184, 255, 0.12);
+    color: #cfe0ff;
+    border: 1px solid rgba(141, 184, 255, 0.45);
     font-size: 13px; cursor: pointer; border-radius: 3px;
+    transition: background-color .3s, border-color .3s, color .3s;
   }
-  .print-btn button:hover { background: #3a6fa8; }
-  .print-btn .home-btn { background: #6c757d; }
-  .print-btn .home-btn:hover { background: #5a6268; }
+  .print-btn button:hover { background: rgba(141, 184, 255, 0.22); border-color: #8db8ff; color: #8db8ff; }
+  .print-btn .home-btn { background: rgba(255, 255, 255, 0.05); color: #a5a5b0; border-color: rgba(255, 255, 255, 0.18); }
+  .print-btn .home-btn:hover { background: rgba(255, 255, 255, 0.10); border-color: rgba(141, 184, 255, 0.5); color: #8db8ff; }
 
   .a4-page {
     width: 210mm; height: 297mm; margin: 0 auto;

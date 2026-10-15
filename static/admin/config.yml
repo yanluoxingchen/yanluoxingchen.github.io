@@ -54,22 +54,6 @@ collections:
         fields:
           - { label: "标题", name: "title", widget: "string" }
           - { label: "副标题", name: "subtitle", widget: "string" }
-          - { label: "邮箱", name: "email", widget: "string" }
-          - label: "社交链接"
-            name: "links"
-            widget: "list"
-            fields:
-              - { label: "名称", name: "name", widget: "string" }
-              - { label: "链接", name: "url", widget: "string" }
-              - { label: "二维码图片", name: "qr", widget: "image", required: false }
-          - label: "项目列表"
-            name: "projects"
-            widget: "list"
-            fields:
-              - { label: "名称", name: "name", widget: "string" }
-              - { label: "链接", name: "url", widget: "string" }
-              - { label: "图标(emoji)", name: "icon", widget: "string" }
-              - { label: "颜色类型", name: "color", widget: "select", options: ["user", "link", "code", "lock"] }
       - label: "导航"
         name: "nav"
         file: "content/nav.md"
@@ -149,3 +133,50 @@ collections:
             name: "honors"
             widget: "list"
             field: { label: "荣誉", name: "honor", widget: "string" }
+
+  # V3 任务1：首页星空导航页的链接数据（data/links.yaml → layouts/home.html）
+  - name: "links"
+    label: "导航链接"
+    files:
+      - label: "导航链接"
+        name: "links"
+        file: "data/links.yaml"
+        fields:
+          - label: "联系邮箱"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "邮箱", name: "email", widget: "string" }
+          - label: "社交链接"
+            name: "social"
+            widget: "list"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接(无则留空，仅二维码项可用)", name: "url", widget: "string", required: false }
+              - { label: "二维码图片(悬停弹出，可留空)", name: "qr", widget: "image", required: false }
+          - label: "站内入口"
+            name: "internal"
+            widget: "list"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接", name: "url", widget: "string" }
+          - label: "当前项目"
+            name: "projects"
+            widget: "list"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接", name: "url", widget: "string" }
+              - { label: "图标(emoji)", name: "icon", widget: "string" }
+              - { label: "图标底色", name: "tile", widget: "string", required: false }
+          - label: "常用工具(预留)"
+            name: "tools"
+            widget: "list"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接", name: "url", widget: "string" }
+          - label: "常用网站(预留)"
+            name: "websites"
+            widget: "list"
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "链接", name: "url", widget: "string" }

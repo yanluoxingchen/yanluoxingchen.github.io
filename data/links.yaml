@@ -1,0 +1,28 @@
+# 首页导航链接数据（V3 任务1）
+# layouts/home.html 从本文件渲染，模板不硬编码任何 URL。
+# 站长可通过 Decap 后台「导航链接」编辑（static/admin/config.yml 的 links file collection）。
+contact:
+  email: wzu5693@gmail.com
+social:
+  - name: 博客园
+    url: https://www.cnblogs.com/yanluoxingchen
+  - name: 语雀花园
+    url: https://www.yuque.com/wangzeyu-broa0
+  - name: 微信公众号
+    qr: /images/微信公众号.jpg    # 悬停弹出二维码
+internal:
+  - name: 简历
+    url: /resume/
+  - name: 导航
+    url: /nav/
+projects:
+  - name: 项目架
+    url: https://www.yuque.com/wangzeyu-broa0/ukl2lk
+    icon: ⚙️
+    tile: "#e8f4fd"
+  - name: 所思所想
+    url: /posts/
+    icon: 🧠
+    tile: "#fff3e0"
+tools: []      # 预留：常用工具
+websites: []   # 预留：常用网站
